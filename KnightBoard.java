@@ -22,9 +22,26 @@ public class KnightBoard {
 		}
 	}
 	
+	
+	
+	public String toString() {
+		String out = "";
+		for(int r = 0; r < decisionBoard.length; r++) {
+			for(int c = 0; c < decisionBoard[r].length; c++) {
+				if(decisionBoard.length * decisionBoard[r].length >= 10 && board[r][c] < 10) {
+				out += " " + board[r][c] + " ";
+				}
+				else {
+					out += board[r][c] + " ";
+				}
+			}
+			out += "\n";
+		}
+		return out;
+	}
+	
 	public static void main(String[] args) {
 		KnightBoard x = new KnightBoard(5,5);
-		System.out.println(Arrays.deepToString(x.decisionBoard));
-		
+		System.out.println(x);
 	}
 }
