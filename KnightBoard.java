@@ -11,13 +11,19 @@ public class KnightBoard {
 	}
 	
 	public void generateWeights() {
-		
-		
+		for(int r = 0; r < decisionBoard.length; r++) {
+			for(int c = 0; c < decisionBoard[r].length; c++) {
+				for(int n = 0; n < possibleMoves.length; n++) {
+					if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
+						decisionBoard[r][c]++;
+					}
+				}
+			}
+		}
 	}
 	
-	
 	public static void main(String[] args) {
-		KnightBoard x = new KnightBoard(2,3);
+		KnightBoard x = new KnightBoard(5,5);
 		System.out.println(Arrays.deepToString(x.decisionBoard));
 		
 	}
