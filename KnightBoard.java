@@ -144,6 +144,7 @@ public class KnightBoard {
 			}
 			out += "\n";
 		}
+		return out;
 	}
 
 	public static void main(String[] args) {
