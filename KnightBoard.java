@@ -24,6 +24,7 @@ public class KnightBoard {
 	}
 
 	public boolean solve(int startRow, int startCol) {
+		board = new int[board.length][board[0].length];
 		return solveH(startRow,startCol,1);
 	}
 
@@ -46,6 +47,7 @@ public class KnightBoard {
 	}
 	
 	public int countSolutions(int startRow, int startCol) {
+		board = new int[board.length][board[0].length];
 		return cSH(startRow,startCol,1,0);
 	}
 	
@@ -158,10 +160,8 @@ public class KnightBoard {
 
 	public static void main(String[] args) {
 		KnightBoard x = new KnightBoard(5,5);
-		System.out.println(x);
 		System.out.println(x.solve(0,0));
-		System.out.println(x);
-
+		System.out.println(x.countSolutions(0,0));
 
 	}
 }
