@@ -11,10 +11,11 @@ public class KnightBoard {
 	}
 
 	public void generateWeights() {
+		decisionBoard = new int[board.length][board[0].length];
 		for(int r = 0; r < decisionBoard.length; r++) {				//for every row
 			for(int c = 0; c < decisionBoard[r].length; c++) {		//for every col
 				for(int n = 0; n < possibleMoves.length; n++) {		// loop through possible moves and ++ at the point r,c if it is valid
-					if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
+					if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length && board[r+possibleMoves[n][0]][c+possibleMoves[n][1]] == 0) {
 						decisionBoard[r][c]++;
 					}
 				}
@@ -24,46 +25,52 @@ public class KnightBoard {
 
 	public boolean solve(int startRow, int startCol) {
 		return solveH(startRow,startCol,0);
-
-
 	}
 
 	public boolean solveH(int r, int c, int pos) {
 		if(pos == 25) {
+			board[r][c] = pos;
 			return true;
 		}
-		else {
-			for(int n = 0; n < possibleMoves.length; n++) {
-				if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
-					decisionBoard[r][c]--;
-				}
-			}
-			int[][] moves = getMoves(r,c);
-			for(int i = 0; i < moves.length; i++) {
-				board[r][c] = pos;
-				solveH(moves[i][1],moves[i][2],pos+1);
-			}
-			board[r][c] = 0;
-			for(int n = 0; n < possibleMoves.length; n++) {
-				if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
-					decisionBoard[r][c]++;
-				}
+		//for(int n = 0; n < possibleMoves.length; n++) {
+		//	if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
+		//		decisionBoard[r+possibleMoves[n][0]][c+possibleMoves[n][1]]--;
+		//	}
+		//}
+		int[][] moves = getMoves(r,c);
+		board[r][c] = pos;
+		System.out.println(moves.length);
+		for(int i = 0; i < moves.length && moves[i] != null; i++) {
+			System.out.println(this);
+			if(solveH(moves[i][1],moves[i][2],pos+1)) {
+				return true;
 			}
 		}
+		board[r][c] = 0;
+		//for(int n = 0; n < possibleMoves.length; n++) {
+		//	if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
+		//		decisionBoard[r+possibleMoves[n][0]][c+possibleMoves[n][1]]++;
+		//	}
+		//}
+		return false;
 	}
 
 	public int[][] getMoves(int r, int c) {
+		generateWeights();
 		int[][] moves = new int[decisionBoard[r][c]][3];
 		int i = 0;
-		for(int n = 0; n < possibleMoves.length; n++) {
-			if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length && board[r+possibleMoves[n][0]][c+possibleMoves[n][1]] == 0) {
-				moves[i][0] = decisionBoard[r+possibleMoves[n][0]][c+possibleMoves[n][1]];
-				moves[i][1] = r+possibleMoves[n][0];
-				moves[i][2] = c+possibleMoves[n][1];
-				i++;
+		if(decisionBoard[r][c] > 0) {
+			for(int n = 0; n < possibleMoves.length; n++) {
+				if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length && board[r+possibleMoves[n][0]][c+possibleMoves[n][1]] == 0) {
+					moves[i][0] = decisionBoard[r+possibleMoves[n][0]][c+possibleMoves[n][1]];
+					moves[i][1] = r+possibleMoves[n][0];
+					moves[i][2] = c+possibleMoves[n][1];
+					i++;
+				}
 			}
+			return sort(moves);
 		}
-		return sort(moves);
+		return moves;
 	}
 
 
@@ -126,8 +133,8 @@ public class KnightBoard {
 
 	public String toString() {
 		String out = "";
-		for(int r = 0; r < decisionBoard.length; r++) {
-			for(int c = 0; c < decisionBoard[r].length; c++) {
+		for(int r = 0; r < board.length; r++) {
+			for(int c = 0; c < board[r].length; c++) {
 				if(board[r][c] < 10) {
 				out += " " + board[r][c] + " ";
 				}
@@ -137,15 +144,14 @@ public class KnightBoard {
 			}
 			out += "\n";
 		}
-		return out;
 	}
 
 	public static void main(String[] args) {
 		KnightBoard x = new KnightBoard(5,5);
 		System.out.println(x);
-		int[][] test = {{1,2,3},{7,2,1},{10,1,2}};
-		int[][] test2 = {{4,2,3},{8,1,2},{6,2,1},{3,1,2},{9,2,1},{2,1,2}};
-		System.out.println(Arrays.deepToString(x.getMoves(2,2)));
+		System.out.println(x.solve(2,2));
+		System.out.println(x);
+
 
 	}
 }
