@@ -3,13 +3,13 @@ public class KnightBoard {
 	private int[][] board;
 	public int[][] decisionBoard;
 	public int[][] possibleMoves = {{1,2},{1,-2},{2,1},{2,-1},{-1,2},{-1,-2},{-2,1},{-2,-1}};
-	
+
 	public KnightBoard(int startingRows,int startingCols) {
 		board = new int[startingRows][startingCols];
 		decisionBoard = new int[startingRows][startingCols];
 		generateWeights();
 	}
-	
+
 	public void generateWeights() {
 		for(int r = 0; r < decisionBoard.length; r++) {				//for every row
 			for(int c = 0; c < decisionBoard[r].length; c++) {		//for every col
@@ -21,18 +21,25 @@ public class KnightBoard {
 			}
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	public int[][] sort(int[][] ary) {
 		return null;
 	}
-	
+
 	public int[][] sH(int[][] ary,int m) {
-		return null;
+		if(ary.length == 1) {
+			return ary;
+		}
+		else {
+			int[][] temp1 = new int[m][3];
+
+			return merge()
+		}
 	}
-	
+
 	public int[][] merge(int[][] ary1,int[][] ary2) {
 		int[][] out = new int[ary1.length+ary2.length][3];
 		int o = 0;
@@ -66,13 +73,12 @@ public class KnightBoard {
 		}
 		return out;
 	}
-	
-	
+
 	public String toString() {
 		String out = "";
 		for(int r = 0; r < decisionBoard.length; r++) {
 			for(int c = 0; c < decisionBoard[r].length; c++) {
-				if(decisionBoard.length * decisionBoard[r].length >= 10 && board[r][c] < 10) {
+				if(board[r][c] < 10) {
 				out += " " + board[r][c] + " ";
 				}
 				else {
@@ -83,13 +89,13 @@ public class KnightBoard {
 		}
 		return out;
 	}
-	
+
 	public static void main(String[] args) {
 		KnightBoard x = new KnightBoard(5,5);
 		System.out.println(x);
 		int[][] test = {{1,2,3},{7,2,1},{10,1,2}};
 		int[][] test2 = {{4,2,3},{6,2,1},{8,1,2}};
 		System.out.println(Arrays.deepToString(x.merge(test,test2)));
-		
+
 	}
 }
