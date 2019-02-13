@@ -22,19 +22,33 @@ public class KnightBoard {
 		}
 	}
 
-	public boolean solve(startRow,StartCol) {
-		return null;
+	public boolean solve(int startRow, int startCol) {
+		return true;
 
 
 	}
 
-	public boolean solveH(r,c,n) {
+	public boolean solveH(int r, int c, int pos) {
 		for(int n = 0; n < possibleMoves.length; n++) {
 			if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
 				decisionBoard[r][c]--;
 			}
 		}
+		return true;
+	}
 
+	public int[][] getMoves(int r, int c) {
+		int[][] moves = new int[decisionBoard[r][c]][3];
+		int i = 0;
+		for(int n = 0; n < possibleMoves.length; n++) {
+			if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
+				moves[i][0] = decisionBoard[r+possibleMoves[n][0]][c+possibleMoves[n][1]];
+				moves[i][1] = r+possibleMoves[n][0];
+				moves[i][2] = c+possibleMoves[n][1];
+				i++;
+			}
+		}
+		return sort(moves);
 	}
 
 
@@ -116,7 +130,7 @@ public class KnightBoard {
 		System.out.println(x);
 		int[][] test = {{1,2,3},{7,2,1},{10,1,2}};
 		int[][] test2 = {{4,2,3},{8,1,2},{6,2,1},{3,1,2},{9,2,1},{2,1,2}};
-		System.out.println(Arrays.deepToString(x.sort(test2)));
+		System.out.println(Arrays.deepToString(x.getMoves(2,2)));
 
 	}
 }
