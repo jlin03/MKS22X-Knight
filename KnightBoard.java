@@ -23,7 +23,7 @@ public class KnightBoard {
 	}
 
 	public boolean solve(int startRow, int startCol) {
-		return true;
+		return solveH(startRow,startCol,0);
 
 
 	}
@@ -49,7 +49,6 @@ public class KnightBoard {
 					decisionBoard[r][c]++;
 				}
 			}
-
 		}
 	}
 
