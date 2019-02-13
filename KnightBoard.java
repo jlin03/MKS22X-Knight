@@ -41,7 +41,13 @@ public class KnightBoard {
 			int[][] moves = getMoves(r,c);
 			for(int i = 0; i < moves.length; i++) {
 				board[r][c] = pos;
-				return solveH(moves[i][1],moves[i][2],pos+1);
+				solveH(moves[i][1],moves[i][2],pos+1);
+			}
+			board[r][c] = 0;
+			for(int n = 0; n < possibleMoves.length; n++) {
+				if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
+					decisionBoard[r][c]++;
+				}
 			}
 
 		}
