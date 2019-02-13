@@ -36,7 +36,7 @@ public class KnightBoard {
 		board[r][c] = pos;
 		System.out.println(moves.length);
 		System.out.println(this);
-		for(int i = 0; i < moves.length && moves[i] != null; i++) {
+		for(int i = 0; i < moves.length; i++) {
 			if(solveH(moves[i][1],moves[i][2],pos+1)) {
 				return true;
 			}
@@ -57,7 +57,7 @@ public class KnightBoard {
 		board[r][c] = pos;
 		System.out.println(moves.length);
 		System.out.println(this);
-		for(int i = 0; i < moves.length && moves[i] != null; i++) {
+		for(int i = 0; i < moves.length; i++) {
 			solveH(moves[i][1],moves[i][2],pos+1);
 		}
 		board[r][c] = 0;
