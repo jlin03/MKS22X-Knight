@@ -29,19 +29,29 @@ public class KnightBoard {
 	}
 
 	public boolean solveH(int r, int c, int pos) {
-		for(int n = 0; n < possibleMoves.length; n++) {
-			if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
-				decisionBoard[r][c]--;
-			}
+		if(pos == 25) {
+			return true;
 		}
-		return true;
+		else {
+			for(int n = 0; n < possibleMoves.length; n++) {
+				if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
+					decisionBoard[r][c]--;
+				}
+			}
+			int[][] moves = getMoves(r,c);
+			for(int i = 0; i < moves.length; i++) {
+				board[r][c] = pos;
+				return solveH(moves[i][1],moves[i][2],pos+1);
+			}
+
+		}
 	}
 
 	public int[][] getMoves(int r, int c) {
 		int[][] moves = new int[decisionBoard[r][c]][3];
 		int i = 0;
 		for(int n = 0; n < possibleMoves.length; n++) {
-			if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
+			if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length && board[r+possibleMoves[n][0]][c+possibleMoves[n][1]] == 0) {
 				moves[i][0] = decisionBoard[r+possibleMoves[n][0]][c+possibleMoves[n][1]];
 				moves[i][1] = r+possibleMoves[n][0];
 				moves[i][2] = c+possibleMoves[n][1];
