@@ -32,11 +32,6 @@ public class KnightBoard {
 			board[r][c] = pos;
 			return true;
 		}
-		//for(int n = 0; n < possibleMoves.length; n++) {
-		//	if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
-		//		decisionBoard[r+possibleMoves[n][0]][c+possibleMoves[n][1]]--;
-		//	}
-		//}
 		int[][] moves = getMoves(r,c);
 		board[r][c] = pos;
 		System.out.println(moves.length);
@@ -47,12 +42,26 @@ public class KnightBoard {
 			}
 		}
 		board[r][c] = 0;
-		//for(int n = 0; n < possibleMoves.length; n++) {
-		//	if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
-		//		decisionBoard[r+possibleMoves[n][0]][c+possibleMoves[n][1]]++;
-		//	}
-		//}
 		return false;
+	}
+	
+	public int countSolutions(int startRow, int startCol) {
+		return cSH(startRow,startCol,1,0);
+	}
+	
+	public int cSH(int r, int c, int pos, int sol) {
+		if(pos == 25) {
+			sol++;
+		}
+		int[][] moves = getMoves(r,c);
+		board[r][c] = pos;
+		System.out.println(moves.length);
+		System.out.println(this);
+		for(int i = 0; i < moves.length && moves[i] != null; i++) {
+			solveH(moves[i][1],moves[i][2],pos+1);
+		}
+		board[r][c] = 0;
+		return sol;
 	}
 
 	public int[][] getMoves(int r, int c) {
@@ -150,7 +159,7 @@ public class KnightBoard {
 	public static void main(String[] args) {
 		KnightBoard x = new KnightBoard(5,5);
 		System.out.println(x);
-		System.out.println(x.solve(2,2));
+		System.out.println(x.solve(0,0));
 		System.out.println(x);
 
 
