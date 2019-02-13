@@ -24,7 +24,7 @@ public class KnightBoard {
 	}
 
 	public boolean solve(int startRow, int startCol) {
-		return solveH(startRow,startCol,0);
+		return solveH(startRow,startCol,1);
 	}
 
 	public boolean solveH(int r, int c, int pos) {
@@ -40,8 +40,8 @@ public class KnightBoard {
 		int[][] moves = getMoves(r,c);
 		board[r][c] = pos;
 		System.out.println(moves.length);
+		System.out.println(this);
 		for(int i = 0; i < moves.length && moves[i] != null; i++) {
-			System.out.println(this);
 			if(solveH(moves[i][1],moves[i][2],pos+1)) {
 				return true;
 			}
