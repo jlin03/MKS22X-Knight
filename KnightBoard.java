@@ -29,7 +29,7 @@ public class KnightBoard {
 	}
 
 	public boolean solveH(int r, int c, int pos) {
-		if(pos == 25) {
+		if(pos == board.length * board[0].length) {
 			board[r][c] = pos;
 			return true;
 		}
@@ -52,7 +52,7 @@ public class KnightBoard {
 	}
 	
 	public int cSH(int r, int c, int pos, int sol) {
-		if(pos == 25) {
+		if(pos == board.length * board[0].length) {
 			sol++;
 		}
 		int[][] moves = getMoves(r,c);
@@ -60,7 +60,7 @@ public class KnightBoard {
 		System.out.println(moves.length);
 		System.out.println(this);
 		for(int i = 0; i < moves.length; i++) {
-			solveH(moves[i][1],moves[i][2],pos+1);
+			cSH(moves[i][1],moves[i][2],pos+1,sol);
 		}
 		board[r][c] = 0;
 		return sol;
@@ -159,7 +159,7 @@ public class KnightBoard {
 	}
 
 	public static void main(String[] args) {
-		KnightBoard x = new KnightBoard(5,5);
+		KnightBoard x = new KnightBoard(4,4);
 		System.out.println(x.solve(0,0));
 		System.out.println(x.countSolutions(0,0));
 
