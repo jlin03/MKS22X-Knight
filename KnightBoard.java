@@ -22,6 +22,21 @@ public class KnightBoard {
 		}
 	}
 
+	public boolean solve(startRow,StartCol) {
+		return null;
+
+
+	}
+
+	public boolean solveH(r,c,n) {
+		for(int n = 0; n < possibleMoves.length; n++) {
+			if(r+possibleMoves[n][0] >= 0 && r+possibleMoves[n][0] < decisionBoard.length && c+possibleMoves[n][1] >= 0 && c+possibleMoves[n][1] < decisionBoard[0].length) {
+				decisionBoard[r][c]--;
+			}
+		}
+
+	}
+
 
 
 
