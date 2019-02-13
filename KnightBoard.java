@@ -13,7 +13,9 @@ public class KnightBoard {
 	}
 
 	public void generateWeights() {
-		decisionBoard = new int[board.length][board[0].length];
+		if(board.length > 0) {
+			decisionBoard = new int[board.length][board[0].length];
+		}
 		for(int r = 0; r < decisionBoard.length; r++) {				//for every row
 			for(int c = 0; c < decisionBoard[r].length; c++) {		//for every col
 				for(int n = 0; n < possibleMoves.length; n++) {		// loop through possible moves and ++ at the point r,c if it is valid
@@ -26,7 +28,19 @@ public class KnightBoard {
 	}
 
 	public boolean solve(int startRow, int startCol) {
-		board = new int[board.length][board[0].length];
+		if(startRow < 0 || startCol < 0) {
+			throw new IllegalArgumentException();
+		}
+		for(int r = 0; r < decisionBoard.length; r++) {
+			for(int c = 0; c < decisionBoard[r].length; c++) {	
+				if(board[r][c] != 0) {
+					throw new IllegalStateException();
+				}
+			}
+		}
+		if(board.length == 0) {
+			return false;
+		}
 		return solveH(startRow,startCol,1);
 	}
 
@@ -50,7 +64,19 @@ public class KnightBoard {
 	}
 	
 	public int countSolutions(int startRow, int startCol) {
-		board = new int[board.length][board[0].length];
+		if(startRow < 0 || startCol < 0) {
+			throw new IllegalArgumentException();
+		}
+		for(int r = 0; r < decisionBoard.length; r++) {
+			for(int c = 0; c < decisionBoard[r].length; c++) {	
+				if(board[r][c] != 0) {
+					throw new IllegalStateException();
+				}
+			}
+		}
+		if(board.length == 0) {
+			return 0;
+		}
 		count = 0;
 		cSH(startRow,startCol,1);
 		return count;
@@ -163,7 +189,7 @@ public class KnightBoard {
 	}
 
 	public static void main(String[] args) {
-		KnightBoard x = new KnightBoard(3,4);
+		KnightBoard x = new KnightBoard(1,1);
 		System.out.println(x.solve(0,0));
 		System.out.println(x.countSolutions(0,0));
 
