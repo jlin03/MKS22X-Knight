@@ -2,11 +2,13 @@ import java.util.Arrays;
 public class KnightBoard {
 	private int[][] board;
 	public int[][] decisionBoard;
+	public int count;
 	public int[][] possibleMoves = {{1,2},{1,-2},{2,1},{2,-1},{-1,2},{-1,-2},{-2,1},{-2,-1}};
 
-	public KnightBoard(int startingRows,int startingCols) {
-		board = new int[startingRows][startingCols];
-		decisionBoard = new int[startingRows][startingCols];
+	public KnightBoard(int rows,int cols) {
+		count = 0;
+		board = new int[rows][cols];
+		decisionBoard = new int[rows][cols];
 		generateWeights();
 	}
 
@@ -43,27 +45,29 @@ public class KnightBoard {
 			}
 		}
 		board[r][c] = 0;
+		board = new int[board.length][board[0].length];
 		return false;
 	}
 	
 	public int countSolutions(int startRow, int startCol) {
 		board = new int[board.length][board[0].length];
-		return cSH(startRow,startCol,1,0);
+		count = 0;
+		cSH(startRow,startCol,1);
+		return count;
 	}
 	
-	public int cSH(int r, int c, int pos, int sol) {
+	public void cSH(int r, int c, int pos) {
 		if(pos == board.length * board[0].length) {
-			sol++;
+			count++;
 		}
 		int[][] moves = getMoves(r,c);
 		board[r][c] = pos;
 		System.out.println(moves.length);
 		System.out.println(this);
 		for(int i = 0; i < moves.length; i++) {
-			cSH(moves[i][1],moves[i][2],pos+1,sol);
+			cSH(moves[i][1],moves[i][2],pos+1);
 		}
 		board[r][c] = 0;
-		return sol;
 	}
 
 	public int[][] getMoves(int r, int c) {
@@ -159,7 +163,7 @@ public class KnightBoard {
 	}
 
 	public static void main(String[] args) {
-		KnightBoard x = new KnightBoard(4,4);
+		KnightBoard x = new KnightBoard(3,4);
 		System.out.println(x.solve(0,0));
 		System.out.println(x.countSolutions(0,0));
 
