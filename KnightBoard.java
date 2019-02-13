@@ -26,17 +26,23 @@ public class KnightBoard {
 
 
 	public int[][] sort(int[][] ary) {
-		return null;
-	}
-
-	public int[][] sH(int[][] ary,int m) {
 		if(ary.length == 1) {
 			return ary;
 		}
 		else {
+			int n = 0;
+			int m = ary.length/2;
 			int[][] temp1 = new int[m][3];
-
-			return merge()
+			int[][] temp2 = new int[ary.length-m][3];
+			for(int i = 0; i < temp1.length; i++) {
+				temp1[i] = ary[n];
+				n++;
+			}
+			for(int i = 0; i < temp2.length; i++) {
+				temp2[i] = ary[n];
+				n++;
+			}
+			return merge(sort(temp1),sort(temp2));
 		}
 	}
 
@@ -94,8 +100,8 @@ public class KnightBoard {
 		KnightBoard x = new KnightBoard(5,5);
 		System.out.println(x);
 		int[][] test = {{1,2,3},{7,2,1},{10,1,2}};
-		int[][] test2 = {{4,2,3},{6,2,1},{8,1,2}};
-		System.out.println(Arrays.deepToString(x.merge(test,test2)));
+		int[][] test2 = {{4,2,3},{8,1,2},{6,2,1},{3,1,2},{9,2,1},{2,1,2}};
+		System.out.println(Arrays.deepToString(x.sort(test2)));
 
 	}
 }
