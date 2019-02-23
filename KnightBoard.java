@@ -51,8 +51,6 @@ public class KnightBoard {
 		}
 		int[][] moves = getMoves(r,c);
 		board[r][c] = pos;
-		System.out.println(moves.length);
-		System.out.println(this);
 		for(int i = 0; i < moves.length; i++) {
 			if(solveH(moves[i][1],moves[i][2],pos+1)) {
 				return true;
@@ -88,8 +86,6 @@ public class KnightBoard {
 		}
 		int[][] moves = getMoves(r,c);
 		board[r][c] = pos;
-		System.out.println(moves.length);
-		System.out.println(this);
 		for(int i = 0; i < moves.length; i++) {
 			cSH(moves[i][1],moves[i][2],pos+1);
 		}
@@ -188,10 +184,4 @@ public class KnightBoard {
 		return out;
 	}
 
-	public static void main(String[] args) {
-		KnightBoard x = new KnightBoard(1,1);
-		System.out.println(x.solve(0,0));
-		System.out.println(x.countSolutions(0,0));
-
-	}
 }
